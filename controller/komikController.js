@@ -23,4 +23,14 @@ async function getKomikById(req, res) {
         res.status(500).json({ error: 'Internal server error' });
     }
 }
-    
+
+async function createKomik(req, res){
+    const { judul, description, author } = req.body;
+    try {
+        const newKomik = await db.Komik.create({ judul, description, author });
+        res.status(201).json(newKomik);
+    } catch (error) {
+        console.error('Error creating komik:', error.message);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
